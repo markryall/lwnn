@@ -7,9 +7,11 @@ Feature: adding simple literals to the execution stack
 
   @wip
   Scenario:
-    When I run `lwwn` interactively
+    When I run `lwnn` interactively
     And I type "2"
     Then the stdout should contain:
     """
+    Stack: 2
     """
-    And I type ""
+    When I type "exit"
+    Then the exit status should be 0
