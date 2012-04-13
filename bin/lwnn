@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
-$stdin.sync = true
-while line = gets
-  line.chomp!
-  exit if line == 'exit'
-  puts 'Stack: 2'
-end
+
+$: << File.dirname(__FILE__)+'/../lib'
+
+require 'lwnn/cli'
+
+Lwnn::Cli.run *ARGV
 
