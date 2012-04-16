@@ -13,3 +13,14 @@ Feature: adding simple literals to the execution stack
     """
     Stack: 2
     """
+
+  @wip
+  Scenario:
+    When I run `lwnn` interactively
+    And I type "'a'"
+    And I type "exit"
+    Then the exit status should be 0
+    And the stdout should contain:
+    """
+    Stack: 'a'
+    """
