@@ -3,7 +3,7 @@ module Lwnn
     def self.run *args
       while line = gets
         line.chomp!
-        exit if line == 'exit'
+        return if line == 'exit'
         puts 'Stack: 2'
       end
     end
