@@ -23,8 +23,10 @@ describe Lwnn::Cli do
   it 'should tokenise commands' do
     tokeniser = stub 'tokeniser'
     Lwnn::Tokeniser.should_receive(:new).and_return tokeniser
+    tokeniser.should_receive(:tokenise).with('1').and_return(['1'])
     $stdin.should_receive(:gets).and_return '1'
     $stdin.should_receive(:gets).and_return nil
+    $stdout.should_receive(:puts).with 'Stack: 1'
     Lwnn::Cli.run
   end
 end

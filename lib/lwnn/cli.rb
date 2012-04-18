@@ -15,7 +15,7 @@ module Lwnn
       while line = io.gets
         line.chomp!
         return if line == 'exit'
-        puts 'Stack: 2'
+        puts 'Stack: '+tokeniser.tokenise(line).join(' ')
       end
     end
   end
