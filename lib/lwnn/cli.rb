@@ -1,3 +1,5 @@
+require 'lwnn/tokeniser'
+
 module Lwnn
   class Cli
     def self.run *args
@@ -9,6 +11,7 @@ module Lwnn
     end
 
     def self.process io
+      tokeniser = Lwnn::Tokeniser.new
       while line = io.gets
         line.chomp!
         return if line == 'exit'

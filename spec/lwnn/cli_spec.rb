@@ -19,4 +19,12 @@ describe Lwnn::Cli do
     File.should_receive(:open).with('foo.lwnn').and_yield io
     Lwnn::Cli.run 'foo.lwnn'
   end
+
+  it 'should tokenise commands' do
+    tokeniser = stub 'tokeniser'
+    Lwnn::Tokeniser.should_receive(:new).and_return tokeniser
+    $stdin.should_receive(:gets).and_return '1'
+    $stdin.should_receive(:gets).and_return nil
+    Lwnn::Cli.run
+  end
 end
