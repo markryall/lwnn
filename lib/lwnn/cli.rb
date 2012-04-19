@@ -18,6 +18,7 @@ module Lwnn
         line.chomp!
         return if line == 'exit'
         evaluation_context.evaluate *tokeniser.tokenise(line)
+        $stdout.puts evaluation_context.state
       end
     end
   end

@@ -2,7 +2,11 @@ module Lwnn
 end
 
 class Lwnn::EvaluationContext
+  def state
+    'State: '+@tokens.join(' ')
+  end
+
   def evaluate *tokens
-    puts 'Stack: '+tokens.join(' ')
+    @tokens = tokens
   end
 end
