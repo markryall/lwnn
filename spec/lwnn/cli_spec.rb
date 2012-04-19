@@ -4,7 +4,7 @@ require 'lwnn/cli'
 
 describe Lwnn::Cli do
   let(:tokeniser) { stub 'tokeniser' }
-  let(:evaluation_context) { stub 'evaluation context', :evaluate => nil, :state => nil }
+  let(:evaluation_context) { stub 'evaluation context', :evalua => nil, :state => nil }
 
   before do
     Lwnn::Tokeniser.stub!(:new).and_return tokeniser
@@ -26,13 +26,6 @@ describe Lwnn::Cli do
     Lwnn::Cli.run
   end
 
-  it 'should read from file instead of stdin when passed parameters' do
-    io = stub 'io'
-    io.should_receive(:gets).and_return nil
-    File.should_receive(:open).with('foo.lwnn').and_yield io
-    Lwnn::Cli.run 'foo.lwnn'
-  end
-
   it 'should tokenise commands' do
     with_stdin '1', nil
     tokeniser.should_receive(:tokenise).with('1').and_return(['1'])
@@ -46,5 +39,14 @@ describe Lwnn::Cli do
     evaluation_context.should_receive(:state).and_return 'state'
     $stdout.should_receive(:puts).with 'state'
     Lwnn::Cli.run
+  end
+
+  describe 'with file parameter' do
+    let(:io) { stub 'io', :gets => nil }
+
+    it 'should read from file instead of stdin when passed parameters' do
+      File.should_receive(:open).with('foo.lwnn').and_yield io
+      Lwnn::Cli.run 'foo.lwnn'
+    end
   end
 end
