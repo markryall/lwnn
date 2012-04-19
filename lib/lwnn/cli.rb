@@ -1,4 +1,5 @@
 require 'lwnn/tokeniser'
+require 'lwnn/evaluation_context'
 
 module Lwnn
   class Cli
@@ -12,10 +13,11 @@ module Lwnn
 
     def self.process io
       tokeniser = Lwnn::Tokeniser.new
+      evaluation_context = Lwnn::EvaluationContext.new
       while line = io.gets
         line.chomp!
         return if line == 'exit'
-        puts 'Stack: '+tokeniser.tokenise(line).join(' ')
+        evaluation_context.evaluate *tokeniser.tokenise(line)
       end
     end
   end
