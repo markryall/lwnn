@@ -58,6 +58,7 @@ describe Lwnn::Cli do
 
     it 'should not write state to stdout' do
       with_input '1', nil
+      $stdout.should_not_receive(:puts)
       Lwnn::Cli.run 'file'
     end
   end
