@@ -31,4 +31,12 @@ describe Lwnn::EvaluationContext do
   it 'should store a few integers in the stack' do
     %w[1 2].should evaluate_to 'State: 1 2'
   end
+
+  it 'should store a few strings in the stack' do
+    %w["a" "b"].should evaluate_to 'State: "a" "b"'
+  end
+
+  it 'should store a few words in the stack' do
+    %w[a b].should evaluate_to 'State: a b'
+  end
 end
