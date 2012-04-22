@@ -25,11 +25,10 @@ describe Lwnn::EvaluationContext do
   end
 
   it 'should store a single integer in the stack' do
-    evaluation_context.evaluate '1'
-    evaluation_context.state.should == 'State: 1'
+    %w[1].should evaluate_to 'State: 1'
   end
 
   it 'should store a few integers in the stack' do
-    ['1','2'].should evaluate_to 'State: 1 2'
+    %w[1 2].should evaluate_to 'State: 1 2'
   end
 end
