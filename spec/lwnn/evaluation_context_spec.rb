@@ -39,4 +39,8 @@ describe Lwnn::EvaluationContext do
   it 'should store a few words in the stack' do
     %w[a b].should evaluate_to 'State: a b'
   end
+
+  it 'should add a pair of integers' do
+    %w[1 2 +].should evaluate_to 'State: 3'
+  end
 end
