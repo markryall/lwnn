@@ -13,10 +13,15 @@ class Lwnn::EvaluationContext
 private
   def process token
     case token
-    when '+'
-      @stack.push @stack.pop.to_i + @stack.pop.to_i
+    when '.'
+      evaluate_stack
     else
       @stack.push token
     end
+  end
+
+  def evaluate_stack
+    operator = @stack.pop
+    @stack.push @stack.pop.to_i + @stack.pop.to_i
   end
 end

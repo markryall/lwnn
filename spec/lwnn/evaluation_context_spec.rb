@@ -16,7 +16,7 @@ describe Lwnn::EvaluationContext do
     end
 
     def failure_message
-      "Expected #{@expected} instead of #{@actual}"
+      "Expected #{@expected.inspect} instead of #{@actual.inspect}"
     end
   end
 
@@ -41,6 +41,10 @@ describe Lwnn::EvaluationContext do
   end
 
   it 'should add a pair of integers' do
-    %w[1 2 +].should evaluate_to 'State: 3'
+    %w[1 2 +].should evaluate_to 'State: 1 2 +'
+  end
+
+  it 'should trigger evaluation' do
+    %w[1 2 + .].should evaluate_to 'State: 3'
   end
 end
