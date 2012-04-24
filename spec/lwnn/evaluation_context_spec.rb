@@ -40,11 +40,15 @@ describe Lwnn::EvaluationContext do
     %w[a b].should evaluate_to 'State: a b'
   end
 
-  it 'should add a pair of integers' do
+  it 'should store an operation on a pair of integers' do
     %w[1 2 +].should evaluate_to 'State: 1 2 +'
   end
 
-  it 'should trigger evaluation' do
+  it 'should trigger evaluation of an addition operation' do
     %w[1 2 + .].should evaluate_to 'State: 3'
+  end
+
+  it 'should trigger evaluation of a subtraction operation' do
+    %w[1 2 - .].should evaluate_to 'State: 1'
   end
 end

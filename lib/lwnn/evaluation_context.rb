@@ -21,7 +21,12 @@ private
   end
 
   def evaluate_stack
-    operator = @stack.pop
-    @stack.push @stack.pop.to_i + @stack.pop.to_i
+    operation = @stack.pop
+    case operation
+    when '+'
+      @stack.push @stack.pop.to_i + @stack.pop.to_i
+    when '-'
+      @stack.push @stack.pop.to_i - @stack.pop.to_i
+    end
   end
 end
