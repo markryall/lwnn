@@ -14,19 +14,21 @@ private
   def process token
     case token
     when '.'
-      evaluate_stack
+      @stack.push evaluate_stack
     else
       @stack.push token
     end
   end
 
   def evaluate_stack
-    operation = @stack.pop
-    case operation
+    token = @stack.pop
+    case token
+    when /[0-9]+/
+      token.to_i
     when '+'
-      @stack.push @stack.pop.to_i + @stack.pop.to_i
+      evaluate_stack + evaluate_stack
     when '-'
-      @stack.push @stack.pop.to_i - @stack.pop.to_i
+      evaluate_stack - evaluate_stack
     end
   end
 end

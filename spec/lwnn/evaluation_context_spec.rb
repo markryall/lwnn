@@ -52,6 +52,10 @@ describe Lwnn::EvaluationContext do
     %w[1 2 - .].should evaluate_to 'State: 1'
   end
 
+  it 'should trigger nested evaluation' do
+    %w[1 2 - 5 + .].should evaluate_to 'State: 6'
+  end
+
   it 'should allow an operation to be defined' do
     pending { %w[1 + e let . 2 e .].should evaluate_to 'State: 3' }
   end
