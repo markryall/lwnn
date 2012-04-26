@@ -52,6 +52,10 @@ describe Lwnn::EvaluationContext do
     %w[1 2 - .].should evaluate_to 'State: 1'
   end
 
+  it 'should trigger evaluation of a multiplication operation' do
+    %w[4 2 * .].should evaluate_to 'State: 8'
+  end
+
   it 'should trigger nested evaluation' do
     %w[1 2 - 5 + .].should evaluate_to 'State: 6'
   end
