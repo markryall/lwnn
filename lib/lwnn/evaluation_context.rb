@@ -31,6 +31,8 @@ private
       evaluate_stack - evaluate_stack
     when '*'
       evaluate_stack * evaluate_stack
+    when '/'
+      evaluate_stack / evaluate_stack
     end
   end
 end

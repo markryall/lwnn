@@ -56,6 +56,10 @@ describe Lwnn::EvaluationContext do
     %w[4 2 * .].should evaluate_to 'State: 8'
   end
 
+  it 'should trigger evaluation of a division operation' do
+    %w[2 6 / .].should evaluate_to 'State: 3'
+  end
+
   it 'should trigger nested evaluation' do
     %w[1 2 - 5 + .].should evaluate_to 'State: 6'
   end
