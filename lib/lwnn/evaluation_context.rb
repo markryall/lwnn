@@ -2,22 +2,22 @@ require 'lwnn/literal'
 require 'lwnn/operation'
 
 module Lwnn
-  OPERATIONS = {}
-
-  def self.operation name, &block
-    OPERATIONS[name] = Operation.new name do |stack|
-      l = stack.pop.evaluate stack
-      r = stack.pop.evaluate stack
-      block.call l, r
-    end
-  end
-
-  operation('+') {|l,r| l + r }
-  operation('-') {|l,r| l - r }
-  operation('*') {|l,r| l * r }
-  operation('/') {|l,r| l / r }
-
   class EvaluationContext
+    OPERATIONS = {}
+
+    def self.operation name, &block
+      OPERATIONS[name] = Operation.new name do |stack|
+        l = stack.pop.evaluate stack
+        r = stack.pop.evaluate stack
+        block.call l, r
+      end
+    end
+
+    operation('+') {|l,r| l + r }
+    operation('-') {|l,r| l - r }
+    operation('*') {|l,r| l * r }
+    operation('/') {|l,r| l / r }
+
     def initialize
       @stack = []
     end
