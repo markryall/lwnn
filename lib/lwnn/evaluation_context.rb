@@ -1,32 +1,7 @@
+require 'lwnn/literal'
+require 'lwnn/operation'
+
 module Lwnn
-  class Literal
-    def initialize value
-      @value = value
-    end
-
-    def evaluate stack
-      @value
-    end
-
-    def to_s
-      @value.to_s
-    end
-  end
-
-  class Operation
-    def initialize name, &block
-      @name, @block = name, block
-    end
-
-    def evaluate stack
-      @block.call stack
-    end
-
-    def to_s
-      @name.to_s
-    end
-  end
-
   OPERATIONS = {}
 
   def self.operation name, &block
