@@ -60,6 +60,10 @@ describe Lwnn::EvaluationContext do
     %w[2 6 / .].should evaluate_to 'State: 3'
   end
 
+  it 'should support multiple evaluations' do
+    %w[2 3 + . 3 + .].should evaluate_to 'State: 8'
+  end
+
   it 'should trigger nested evaluation' do
     %w[1 2 - 5 + .].should evaluate_to 'State: 6'
   end
@@ -69,6 +73,6 @@ describe Lwnn::EvaluationContext do
   end
 
   it 'should allow bindings to be placed on stack' do
-    %w[bindings .].should evaluate_to 'State: '
+    %w[bindings .].should evaluate_to 'State: bindings'
   end
 end
