@@ -75,4 +75,8 @@ describe Lwnn::EvaluationContext do
   it 'should allow bindings to be placed on stack' do
     %w[bindings .].should evaluate_to 'State: bindings'
   end
+
+  it 'should allow stack elements to be duplicated' do
+    %w[1 2 dup].should evaluate_to 'State: 1 2 2'
+  end
 end

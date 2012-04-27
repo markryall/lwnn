@@ -38,6 +38,8 @@ module Lwnn
         when 'let'
           @bindings[@stack.pop.evaluate @stack] = Stack.new @stack
           @stack = []
+        when 'dup'
+          @stack.push @stack.last
         when '.'
           result = @stack.pop.evaluate @stack
           @stack.push Literal.new result if result
