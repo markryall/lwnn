@@ -69,7 +69,7 @@ describe Lwnn::EvaluationContext do
   end
 
   it 'should allow an operation to be defined' do
-    pending { %w[1 + e let . 2 e .].should evaluate_to 'State: 3' }
+    %w[1 + e let 2 e . .].should evaluate_to 'State: 3'
   end
 
   it 'should allow bindings to be placed on stack' do

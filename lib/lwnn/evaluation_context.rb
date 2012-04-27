@@ -2,24 +2,37 @@ require 'lwnn/literal'
 require 'lwnn/operation'
 
 module Lwnn
-  class EvaluationContext
-    OPERATIONS = {}
+  class Stack
+    def initialize stack
+      @stack = stack
+    end
 
-    def self.operation name, &block
-      OPERATIONS[name] = Operation.new name do |stack|
+    def evaluate stack
+      @stack.each {|item| stack.push item }
+      nil
+    end
+
+    def to_s
+      @stack.to_s
+    end
+  end
+
+  class EvaluationContext
+    def initialize
+      @stack = []
+      @bindings = {}
+      bind('+') {|l,r| l + r }
+      bind('-') {|l,r| l - r }
+      bind('*') {|l,r| l * r }
+      bind('/') {|l,r| l / r }
+    end
+
+    def bind name, &block
+      @bindings[name] = Operation.new name do |stack|
         l = stack.pop.evaluate stack
         r = stack.pop.evaluate stack
         block.call l, r
       end
-    end
-
-    operation('+') {|l,r| l + r }
-    operation('-') {|l,r| l - r }
-    operation('*') {|l,r| l * r }
-    operation('/') {|l,r| l / r }
-
-    def initialize
-      @stack = []
     end
 
     def state
@@ -27,7 +40,7 @@ module Lwnn
     end
 
     def lookup token
-      return OPERATIONS[token] if OPERATIONS.has_key? token
+      return @bindings[token] if @bindings.has_key? token
       Literal.new token
     end
 
@@ -36,8 +49,12 @@ module Lwnn
         case token
         when /[0-9]+/
           @stack.push Literal.new token.to_i
+        when 'let'
+          @bindings[@stack.pop.evaluate @stack] = Stack.new @stack
+          @stack = []
         when '.'
-          @stack.push Literal.new @stack.pop.evaluate @stack
+          result = @stack.pop.evaluate @stack
+          @stack.push Literal.new result if result
         else
           @stack.push lookup token
         end
