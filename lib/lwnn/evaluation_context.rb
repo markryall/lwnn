@@ -40,6 +40,8 @@ module Lwnn
           @stack = []
         when 'dup'
           @stack.push @stack.last
+        when 'swap'
+          @stack.push @stack.pop,@stack.pop
         when '.'
           result = @stack.pop.evaluate @stack
           @stack.push Literal.new result if result
