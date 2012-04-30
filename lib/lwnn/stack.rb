@@ -6,7 +6,7 @@ module Lwnn
 
     def evaluate stack
       @stack.each {|item| stack.push item }
-      nil
+      stack.pop.evaluate stack
     end
 
     def to_s
