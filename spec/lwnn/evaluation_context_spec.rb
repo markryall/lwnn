@@ -72,15 +72,11 @@ describe Lwnn::EvaluationContext do
     %w[1 + e let 2 e .].should evaluate_to 'State: 3'
   end
 
-  it 'should allow bindings to be placed on stack' do
-    %w[bindings .].should evaluate_to 'State: bindings'
-  end
-
   it 'should allow stack elements to be duplicated' do
-    %w[1 2 dup].should evaluate_to 'State: 1 2 2'
+    %w[1 2 dup .].should evaluate_to 'State: 1 2 2'
   end
 
   it 'should allow stack elements to be swapped' do
-    %w[1 2 swap].should evaluate_to 'State: 2 1'
+    %w[1 2 swap .].should evaluate_to 'State: 2 1'
   end
 end

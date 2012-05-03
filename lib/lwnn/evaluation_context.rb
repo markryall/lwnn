@@ -10,6 +10,8 @@ module Lwnn
       ec.bind('-') {|l,r| l - r }
       ec.bind('*') {|l,r| l * r }
       ec.bind('/') {|l,r| l / r }
+      ec.bind_lazy('dup') {|stack| stack.push stack.last; nil }
+      ec.bind_lazy('swap') {|stack| stack.push stack.pop, stack.pop; nil }
       ec
     end
 
@@ -24,6 +26,10 @@ module Lwnn
         block.arity.times { args << stack.pop.evaluate(stack) }
         block.call *args
       end
+    end
+
+    def bind_lazy name, &block
+      @bindings[name] = Operation.new name, &block
     end
 
     def state
@@ -43,10 +49,6 @@ module Lwnn
         when 'let'
           @bindings[@stack.pop.evaluate @stack] = Stack.new @stack
           @stack = []
-        when 'dup'
-          @stack.push @stack.last
-        when 'swap'
-          @stack.push @stack.pop,@stack.pop
         when '.'
           result = @stack.pop.evaluate @stack
           @stack.push Literal.new result if result
