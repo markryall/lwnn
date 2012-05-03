@@ -9,7 +9,7 @@ describe Lwnn::EvaluationContext do
     end
 
     def matches? tokens
-      evaluation_context = Lwnn::EvaluationContext.new
+      evaluation_context = Lwnn::EvaluationContext.build
       evaluation_context.evaluate *tokens
       @actual = evaluation_context.state
       @expected == @actual

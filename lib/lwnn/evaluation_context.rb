@@ -4,20 +4,25 @@ require 'lwnn/stack'
 
 module Lwnn
   class EvaluationContext
+    def self.build
+      ec = EvaluationContext.new
+      ec.bind('+') {|l,r| l + r }
+      ec.bind('-') {|l,r| l - r }
+      ec.bind('*') {|l,r| l * r }
+      ec.bind('/') {|l,r| l / r }
+      ec
+    end
+
     def initialize
       @stack = []
       @bindings = {}
-      bind('+') {|l,r| l + r }
-      bind('-') {|l,r| l - r }
-      bind('*') {|l,r| l * r }
-      bind('/') {|l,r| l / r }
     end
 
     def bind name, &block
       @bindings[name] = Operation.new name do |stack|
-        l = stack.pop.evaluate stack
-        r = stack.pop.evaluate stack
-        block.call l, r
+        args = []
+        block.arity.times { args << stack.pop.evaluate(stack) }
+        block.call *args
       end
     end
 
