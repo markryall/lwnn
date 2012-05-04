@@ -5,14 +5,18 @@ require 'lwnn/stack'
 module Lwnn
   class EvaluationContext
     def self.build
-      ec = EvaluationContext.new
-      ec.bind('+') {|l,r| l + r }
-      ec.bind('-') {|l,r| l - r }
-      ec.bind('*') {|l,r| l * r }
-      ec.bind('/') {|l,r| l / r }
-      ec.bind_lazy('dup') {|stack| stack.push stack.last; nil }
-      ec.bind_lazy('swap') {|stack| stack.push stack.pop, stack.pop; nil }
-      ec
+      EvaluationContext.new.tap do |ec|
+        ec.bind('+') {|l,r| l + r }
+        ec.bind('-') {|l,r| l - r }
+        ec.bind('*') {|l,r| l * r }
+        ec.bind('/') {|l,r| l / r }
+        ec.bind_lazy('dup') {|stack| stack.last.evaluate stack }
+        ec.bind_lazy('swap') do |stack|
+          a,b = stack.pop, stack.pop
+          stack.push a
+          b.evaluate stack
+        end
+      end
     end
 
     def initialize
