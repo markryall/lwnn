@@ -24,6 +24,10 @@ module Lwnn
           stack.clear
           nil
         end
+        ec.bind_lazy('if') do |stack,bindings|
+          con, t, f = stack.pop.evaluate(stack, bindings), stack.pop, stack.pop
+          con == 'true' ? t.evaluate(stack, bindings) : f.evaluate(stack, bindings)
+        end
       end
     end
 

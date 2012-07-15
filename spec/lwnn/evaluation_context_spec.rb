@@ -79,4 +79,12 @@ describe Lwnn::EvaluationContext do
   it 'should allow stack elements to be swapped' do
     %w[1 2 swap - .].should evaluate_to 'State: -1'
   end
+
+  it 'should support a basic true conditional' do
+    %w[1 2 true if .].should evaluate_to 'State: 2'
+  end
+
+  it 'should support a basic false conditional' do
+    %w[1 2 false if .].should evaluate_to 'State: 1'
+  end
 end
