@@ -18,5 +18,7 @@ Feature: adding simple literals to the execution stack
 
   | Input    | State |
   | 2        | 2     |
+  | 1 2      | 1 2   |
   | a        | a     |
   | true     | true  |
+  | 1 2 +    | 1 2 + |
