@@ -16,6 +16,9 @@ Feature: evaluation some simple conditionals
 
   Examples:
 
-  | Input         | State |
-  | 1 2 true if   | 2     |
-  | 1 2 false if  | 1     |
+  | Input            | State |
+  | nup yep true if  | yep   |
+  | nup yep false if | nup   |
+  | nup yep 3 4 > if | yep   |
+  | nup yep 3 4 < if | nup   |
+  | nup yep 3 4 = if | nup   |

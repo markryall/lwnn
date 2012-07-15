@@ -25,3 +25,6 @@ Feature: evaluation some simple operations
   | 1 2 - 5 +     | 6     |
   | 1 dup         | 1 1   |
   | 1 2 swap      | 2 1   |
+  | 1 2 >         | true  |
+  | 1 2 <         | false |
+  | 1 2 =         | false |
