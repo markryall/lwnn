@@ -13,7 +13,7 @@ module Lwnn
 
     def self.process io, interactive
       tokeniser = Lwnn::Tokeniser.new
-      evaluation_context = Lwnn::EvaluationContext.new
+      evaluation_context = Lwnn::EvaluationContext.build
       while line = io.gets
         line.chomp!
         return if line == 'exit'

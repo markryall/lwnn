@@ -11,7 +11,7 @@ Feature: adding simple literals to the execution stack
     Then the exit status should be 0
     And the stdout should contain:
     """
-    Stack: 2
+    State: 2
     """
 
   @wip
@@ -22,5 +22,5 @@ Feature: adding simple literals to the execution stack
     Then the exit status should be 0
     And the stdout should contain:
     """
-    Stack: 'a'
+    State: 'a'
     """

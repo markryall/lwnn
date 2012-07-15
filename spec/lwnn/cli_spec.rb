@@ -8,7 +8,8 @@ describe Lwnn::Cli do
 
   before do
     Lwnn::Tokeniser.stub!(:new).and_return tokeniser
-    Lwnn::EvaluationContext.stub!(:new).and_return evaluation_context
+    Lwnn::EvaluationContext.stub!(:build).and_return evaluation_context
+    $stdout.stub! :puts
   end
 
   def with_stdin *strings
@@ -46,7 +47,7 @@ describe Lwnn::Cli do
     before do
       File.stub!(:open).and_yield io
     end
- 
+
     def with_input *lines
       lines.each {|line| io.should_receive(:gets).and_return line}
     end
