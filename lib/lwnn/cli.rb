@@ -1,5 +1,5 @@
 require 'lwnn/tokeniser'
-require 'lwnn/evaluation_context'
+require 'lwnn/base_evaluation_context'
 
 module Lwnn
   class Cli
@@ -13,7 +13,7 @@ module Lwnn
 
     def self.process io, interactive
       tokeniser = Lwnn::Tokeniser.new
-      evaluation_context = Lwnn::EvaluationContext.build
+      evaluation_context = Lwnn::BaseEvaluationContext.build
       while line = io.gets
         line.chomp!
         return if line == 'exit'

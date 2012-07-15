@@ -8,7 +8,7 @@ describe Lwnn::Cli do
 
   before do
     Lwnn::Tokeniser.stub!(:new).and_return tokeniser
-    Lwnn::EvaluationContext.stub!(:build).and_return evaluation_context
+    Lwnn::BaseEvaluationContext.stub!(:build).and_return evaluation_context
     $stdout.stub! :puts
   end
 

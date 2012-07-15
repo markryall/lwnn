@@ -1,15 +1,13 @@
-require 'lwnn/evaluation_context'
+require 'lwnn/base_evaluation_context'
 
-describe Lwnn::EvaluationContext do
-  let(:evaluation_context) { Lwnn::EvaluationContext.new }
-
+describe Lwnn::BaseEvaluationContext do
   class EvaluationMatcher
     def initialize state
       @expected = state
     end
 
     def matches? tokens
-      evaluation_context = Lwnn::EvaluationContext.build
+      evaluation_context = Lwnn::BaseEvaluationContext.build
       evaluation_context.evaluate *tokens
       @actual = evaluation_context.state
       @expected == @actual
