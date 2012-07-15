@@ -4,23 +4,19 @@ Feature: adding simple literals to the execution stack
   As I programmer
   I want to push literals onto the execution stack
 
-  Scenario:
+  Scenario Outline:
     When I run `lwnn` interactively
-    And I type "2"
+    And I type "<Input>"
     And I type "exit"
     Then the exit status should be 0
     And the stdout should contain:
     """
-    State: 2
+    State: <State>
     """
 
-  @wip
-  Scenario:
-    When I run `lwnn` interactively
-    And I type "'a'"
-    And I type "exit"
-    Then the exit status should be 0
-    And the stdout should contain:
-    """
-    State: 'a'
-    """
+  Examples:
+
+  | Input    | State |
+  | 2        | 2     |
+  | a        | a     |
+  | true     | true  |
