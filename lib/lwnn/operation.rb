@@ -8,9 +8,9 @@ module Lwnn
       @name, @block = name, block
     end
 
-    def evaluate stack, bindings
+    def evaluate state
       trace "calling operation #{@name}"
-      @block.call stack, bindings
+      @block.call state
     end
 
     def to_s

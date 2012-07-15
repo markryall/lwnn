@@ -5,9 +5,9 @@ module Lwnn
       stack.each {|item| @stack.push item }
     end
 
-    def evaluate stack, bindings
-      @stack.each {|item| stack.push item }
-      stack.pop.evaluate stack, bindings
+    def evaluate state
+      @stack.each {|item| state.push item }
+      state.evaluate
     end
 
     def to_s

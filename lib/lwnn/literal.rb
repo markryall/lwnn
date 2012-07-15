@@ -8,7 +8,7 @@ module Lwnn
       @value = value
     end
 
-    def evaluate stack, bindings
+    def evaluate state
       trace "evaluating literal to #{@value}"
       @value
     end

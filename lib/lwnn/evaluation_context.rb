@@ -1,3 +1,4 @@
+require 'lwnn/state'
 require 'lwnn/literal'
 require 'lwnn/operation'
 require 'lwnn/stack'
@@ -13,62 +14,51 @@ module Lwnn
         ec.bind('-') {|l,r| l - r }
         ec.bind('*') {|l,r| l * r }
         ec.bind('/') {|l,r| l / r }
-        ec.bind_lazy('dup') {|stack,bindings| stack.last.evaluate stack, bindings }
-        ec.bind_lazy('swap') do |stack,bindings|
-          a,b = stack.pop, stack.pop
-          stack.push a
-          b.evaluate stack, bindings
+        ec.bind_lazy('dup') {|state| state.peek.evaluate state }
+        ec.bind_lazy('swap') do |state|
+          a,b = state.pop, state.pop
+          state.push a
+          b.evaluate state
         end
-        ec.bind_lazy('let') do |stack,bindings|
-          bindings[stack.pop.evaluate(stack, bindings)] = Stack.new stack
-          stack.clear
-          nil
-        end
-        ec.bind_lazy('if') do |stack,bindings|
-          con, t, f = stack.pop.evaluate(stack, bindings), stack.pop, stack.pop
-          con == 'true' ? t.evaluate(stack, bindings) : f.evaluate(stack, bindings)
+        ec.bind_lazy('let') {|state| state.let }
+        ec.bind_lazy('if') do |state|
+          con, t, f = state.evaluate, state.pop, state.pop
+          con == 'true' ? t.evaluate(state) : f.evaluate(state)
         end
       end
     end
 
     def initialize
-      @stack = []
-      @bindings = {}
+      @state = State.new
     end
 
     def bind name, &block
-      @bindings[name] = Operation.new name do |stack,bindings|
+      @state[name] = Operation.new name do |state|
         args = []
-        block.arity.times { args << stack.pop.evaluate(stack,bindings) }
+        block.arity.times { args << state.evaluate }
         block.call *args
       end
     end
 
     def bind_lazy name, &block
-      @bindings[name] = Operation.new name, &block
+      @state[name] = Operation.new name, &block
     end
 
     def state
-      trace "#{@bindings.map {|b| b.join ' '}.join "\n"}"
-      "State: #{@stack.join ' '}"
-    end
-
-    def lookup token
-      return @bindings[token] if @bindings.has_key? token
-      Literal.new token
+      "State: #{@state}"
     end
 
     def evaluate *tokens
       tokens.each do |token|
         case token
         when /[0-9]+/
-          @stack.push Literal.new token.to_i
+          @state.push Literal.new token.to_i
         when '.'
-          trace "evaluating from #{@stack.last}"
-          result = @stack.pop.evaluate @stack, @bindings
-          @stack.push Literal.new result if result
+          trace "evaluating from #{@state.peek}"
+          result = @state.pop.evaluate @state
+          @state.push Literal.new result if result
         else
-          @stack.push lookup token
+          @state.push @state.lookup token
         end
       end
     end
