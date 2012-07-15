@@ -10,18 +10,18 @@ module Lwnn
 
     def self.build
       EvaluationContext.new.tap do |ec|
-        ec.bind('+') {|l,r| l + r }
-        ec.bind('-') {|l,r| l - r }
-        ec.bind('*') {|l,r| l * r }
-        ec.bind('/') {|l,r| l / r }
-        ec.bind_lazy('dup') {|state| state.peek.evaluate state }
-        ec.bind_lazy('swap') do |state|
+        ec.bind_op('+') {|l,r| l + r }
+        ec.bind_op('-') {|l,r| l - r }
+        ec.bind_op('*') {|l,r| l * r }
+        ec.bind_op('/') {|l,r| l / r }
+        ec.bind('dup') {|state| state.peek.evaluate state }
+        ec.bind('swap') do |state|
           a,b = state.pop, state.pop
           state.push a
           b.evaluate state
         end
-        ec.bind_lazy('let') {|state| state.let }
-        ec.bind_lazy('if') do |state|
+        ec.bind('let') {|state| state.let }
+        ec.bind('if') do |state|
           con, t, f = state.evaluate, state.pop, state.pop
           con == 'true' ? t.evaluate(state) : f.evaluate(state)
         end
@@ -33,15 +33,15 @@ module Lwnn
     end
 
     def bind name, &block
+      @state[name] = Operation.new name, &block
+    end
+
+    def bind_op name, &block
       @state[name] = Operation.new name do |state|
         args = []
         block.arity.times { args << state.evaluate }
         block.call *args
       end
-    end
-
-    def bind_lazy name, &block
-      @state[name] = Operation.new name, &block
     end
 
     def state
