@@ -24,6 +24,10 @@ module Lwnn
       @stack.push value
     end
 
+    def push_literal value
+      push Literal.new value, self
+    end
+
     def []= key, value
       @bindings[key] = value
     end
