@@ -4,13 +4,19 @@ module Lwnn
   class Literal
     include Trace
 
-    def initialize value
-      @value = value
+    def initialize value, state
+      @value, @state = value, state
     end
 
     def evaluate state
-      trace "evaluating literal to #{@value}"
-      @value
+      binding = @state.lookup @value
+      if binding
+        trace "evaluating binding associated with #{@value}"
+        binding.evaluate @state
+      else
+        trace "evaluating unbound literal to #{@value}" unless binding
+        @value
+      end
     end
 
     def to_s

@@ -1,7 +1,10 @@
 require 'lwnn/stack'
+require 'lwnn/trace'
 
 module Lwnn
   class State
+    include Trace
+
     def initialize
       @stack = []
       @bindings = {}
@@ -12,10 +15,12 @@ module Lwnn
     end
 
     def pop
+      trace "state #{@stack} before popping #{peek}"
       @stack.pop
     end
 
     def push value
+      trace "state #{@stack} before pushing #{value}"
       @stack.push value
     end
 
@@ -25,7 +30,6 @@ module Lwnn
 
     def lookup key
       return @bindings[key] if @bindings.has_key? key
-      Literal.new key
     end
 
     def evaluate

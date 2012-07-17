@@ -32,13 +32,13 @@ module Lwnn
       tokens.each do |token|
         case token
         when /[0-9]+/
-          @state.push Literal.new token.to_i
+          @state.push Literal.new token.to_i, @state
         when '.'
           trace "evaluating from #{@state.peek}"
           result = @state.pop.evaluate @state
-          @state.push Literal.new result if result
+          @state.push Literal.new result, @state if result
         else
-          @state.push @state.lookup token
+          @state.push Literal.new token, @state
         end
       end
     end

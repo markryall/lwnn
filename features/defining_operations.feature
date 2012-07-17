@@ -16,5 +16,6 @@ Feature: define new operations
 
   Examples:
 
-  | Input             | State |
-  | 1 + e let . 2 e . | 3     |
+  | Input                       | State |
+  | 1 + e let . 2 e .           | 3     |
+  | f + e let . 3 f let . f e . | 6     |
