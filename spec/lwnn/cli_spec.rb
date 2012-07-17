@@ -5,15 +5,17 @@ require 'lwnn/cli'
 describe Lwnn::Cli do
   let(:tokeniser) { stub 'tokeniser', :tokenise => nil }
   let(:evaluation_context) { stub 'evaluation context', :evaluate => nil, :state => nil }
+  let(:readline_io) { stub 'readline io' }
 
   before do
     Lwnn::Tokeniser.stub!(:new).and_return tokeniser
     Lwnn::BaseEvaluationContext.stub!(:build).and_return evaluation_context
+    Lwnn::ReadlineIo.stub!(:new).and_return readline_io
     $stdout.stub! :puts
   end
 
   def with_stdin *strings
-    strings.each {|string| $stdin.should_receive(:gets).and_return string }
+    strings.each {|string| readline_io.should_receive(:gets).and_return string }
   end
 
   it 'should abort on reading "exit"' do

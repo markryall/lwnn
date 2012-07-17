@@ -1,11 +1,22 @@
 require 'lwnn/tokeniser'
 require 'lwnn/base_evaluation_context'
+require 'readline'
 
 module Lwnn
+  class ReadlineIo
+    def initialize prompt
+      @prompt = prompt
+    end
+
+    def gets
+      Readline.readline @prompt, true
+    end
+  end
+
   class Cli
     def self.run *args
       if args.empty?
-        process $stdin, true
+        process ReadlineIo.new('> '), true
       else
         args.each {|arg| File.open(arg) {|file| process file, false } }
       end
