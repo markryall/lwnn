@@ -15,6 +15,9 @@ module Lwnn
         ec.bind_op('<=') {|l,r| l <=r ? 'true' : 'false'}
         ec.bind_op('=') {|l,r| l == r ? 'true' : 'false'}
 
+        ec.bind_op('and') {|l,r| l == 'true' && r == 'true' ? 'true' : 'false'}
+        ec.bind_op('or') {|l,r| l == 'true' || r == 'true' ? 'true' : 'false'}
+
         ec.bind('dup') {|state| state.peek.evaluate state }
         ec.bind('swap') do |state|
           a,b = state.pop, state.pop
