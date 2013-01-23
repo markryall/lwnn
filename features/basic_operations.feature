@@ -34,3 +34,5 @@ Feature: evaluation some simple operations
   | true false and  | false |
   | true true or    | true  |
   | true false or   | true  |
+  | 1 2 3 4 +       | 10    |
+  | 1 2 3 4 *       | 24    |

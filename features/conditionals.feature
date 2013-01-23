@@ -19,6 +19,6 @@ Feature: evaluation some simple conditionals
   | Input            | State |
   | nup yep true if  | yep   |
   | nup yep false if | nup   |
-  | nup yep 3 4 > if | yep   |
-  | nup yep 3 4 < if | nup   |
-  | nup yep 3 4 = if | nup   |
+  #| nup yep 3 4 > if | yep   |
+  #| nup yep 3 4 < if | nup   |
+  #| nup yep 3 4 = if | nup   |
