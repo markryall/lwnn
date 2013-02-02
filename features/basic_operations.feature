@@ -36,3 +36,4 @@ Feature: evaluation some simple operations
   | true false or   | true                     |
   | +               | missing_expected_operand |
   | 1 +             | missing_expected_operand |
+  | 1 2 rm          | 1                        |
