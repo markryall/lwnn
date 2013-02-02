@@ -16,21 +16,23 @@ Feature: evaluation some simple operations
 
   Examples:
 
-  | Input           | State |
-  | 1 2 +           | 3     |
-  | 1 2 -           | 1     |
-  | 2 3 *           | 6     |
-  | 2 4 /           | 2     |
-  | 2 3 + . 3 +     | 8     |
-  | 1 2 - 5 +       | 6     |
-  | 1 dup           | 1 1   |
-  | 1 2 swap        | 2 1   |
-  | 1 2 >           | true  |
-  | 1 2 <           | false |
-  | 1 2 =           | false |
-  | 1 2 <=          | false |
-  | 1 2 >=          | true  |
-  | true true and   | true  |
-  | true false and  | false |
-  | true true or    | true  |
-  | true false or   | true  |
+  | Input           | State                    |
+  | 1 2 +           | 3                        |
+  | 1 2 -           | 1                        |
+  | 2 3 *           | 6                        |
+  | 2 4 /           | 2                        |
+  | 2 3 + . 3 +     | 8                        |
+  | 1 2 - 5 +       | 6                        |
+  | 1 dup           | 1 1                      |
+  | 1 2 swap        | 2 1                      |
+  | 1 2 >           | true                     |
+  | 1 2 <           | false                    |
+  | 1 2 =           | false                    |
+  | 1 2 <=          | false                    |
+  | 1 2 >=          | true                     |
+  | true true and   | true                     |
+  | true false and  | false                    |
+  | true true or    | true                     |
+  | true false or   | true                     |
+  | +               | missing_expected_operand |
+  | 1 +             | missing_expected_operand |

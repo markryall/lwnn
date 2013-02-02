@@ -19,8 +19,12 @@ module Lwnn
     def bind_op name, &block
       @state[name] = Operation.new name do |state|
         args = []
-        block.arity.times { args << state.evaluate }
-        block.call *args
+        block.arity.times do
+          value = state.evaluate
+          break unless value
+          args << value
+        end
+        block.call *args unless args.length < block.arity
       end
     end
 

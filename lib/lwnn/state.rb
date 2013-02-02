@@ -37,7 +37,12 @@ module Lwnn
     end
 
     def evaluate
-      @stack.pop.evaluate self
+      if peek
+        @stack.pop.evaluate self
+      else
+        push_literal 'missing_expected_operand'
+        nil
+      end
     end
 
     def to_s
