@@ -1,10 +1,10 @@
 class LwnnMatcher
-  def initialize expected
-    @expected = expected
+  def initialize expected, suffix=''
+    @expected, @suffix = expected.strip, suffix
   end
 
   def matches? input
-    lines = `echo '#{input}' | ./bin/lwnn`.split("\n")
+    lines = `echo '#{input} #{@suffix}' | ./bin/lwnn`.split("\n")
     match = /State: /.match lines[1]
     @actual = match.post_match
     @actual == @expected
@@ -17,6 +17,10 @@ end
 
 module LwnnHelper
   def evaluate_to string
+    LwnnMatcher.new string, ' .'
+  end
+
+  def result_in string
     LwnnMatcher.new string
   end
 end
