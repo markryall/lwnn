@@ -18,7 +18,7 @@ module Lwnn
         ec.bind_op('and') {|l,r| l == 'true' && r == 'true' ? 'true' : 'false'}
         ec.bind_op('or') {|l,r| l == 'true' || r == 'true' ? 'true' : 'false'}
 
-        ec.bind('rm') {|state| state.pop; state.pop }
+        ec.bind('rm') {|state| state.pop; nil }
 
         ec.bind('dup') {|state| state.peek.evaluate state }
         ec.bind('swap') do |state|
@@ -30,6 +30,10 @@ module Lwnn
         ec.bind('if') do |state|
           con, t, f = state.evaluate, state.pop, state.pop
           con == 'true' ? t.evaluate(state) : f.evaluate(state)
+        end
+        ec.bind('new') do |state|
+          state.pop
+          nil
         end
       end
     end

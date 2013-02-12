@@ -8,8 +8,8 @@ module Lwnn
   class EvaluationContext
     include Trace
 
-    def initialize
-      @state = State.new
+    def initialize parent=nil
+      @state, @parent = State.new, parent
     end
 
     def bind name, &block

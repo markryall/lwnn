@@ -1,5 +1,3 @@
-$: << 'lib'
-
 require 'lwnn/cli'
 
 describe Lwnn::Cli do

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'basic types' do
+describe 'defining bindings' do
   include LwnnHelper
 
   {
