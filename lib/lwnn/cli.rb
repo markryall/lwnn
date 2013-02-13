@@ -1,5 +1,5 @@
 require 'lwnn/tokeniser'
-require 'lwnn/base_evaluation_context'
+require 'lwnn/executor'
 require 'readline'
 
 module Lwnn
@@ -24,12 +24,12 @@ module Lwnn
 
     def self.process io, interactive
       tokeniser = Lwnn::Tokeniser.new
-      evaluation_context = Lwnn::BaseEvaluationContext.build
+      executor = Lwnn::Executor.new
       while line = io.gets
         line.chomp!
         return if line == 'exit'
-        evaluation_context.evaluate *tokeniser.tokenise(line)
-        $stdout.puts evaluation_context.state if interactive
+        executor.execute *tokeniser.tokenise(line)
+        executor.dump $stdout if interactive
       end
     end
   end
