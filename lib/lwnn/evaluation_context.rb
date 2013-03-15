@@ -41,6 +41,14 @@ module Lwnn
           trace "evaluating from #{@state.peek}"
           result = @state.pop.evaluate @state
           @state.push_literal result if result
+        when 'peek'
+          symbol = @state.peek
+          puts symbol.class
+          p symbol
+        when 'pop'
+          @state.pop
+        when 'clear'
+          @state.clear
         else
           @state.push_literal token
         end

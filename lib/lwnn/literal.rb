@@ -22,5 +22,9 @@ module Lwnn
     def to_s
       @value.to_s
     end
+
+    def bound?
+      @state.has_binding? @value
+    end
   end
 end
