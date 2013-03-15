@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe 'basic types' do
   include LwnnHelper
@@ -9,7 +9,7 @@ describe 'basic types' do
     'nup yep 3 4 > if .' => 'yep',
     'nup yep 3 4 < if .' => 'nup',
     'nup yep 3 4 = if .' => 'nup'
-  }.each do |input, output|
-    it { input.should evaluate_to output }
+  }.each do |input, expected|
+    it(input) { evaluation_for(input).must_equal expected }
   end
 end

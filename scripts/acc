@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby 
+
+Dir['spec/acceptance/*_spec.rb'].each {|spec| load spec}

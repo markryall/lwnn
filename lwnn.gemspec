@@ -8,9 +8,8 @@ Gem::Specification.new do |spec|
   spec.email = 'mark@ryall.name'
   spec.homepage = 'http://github.com/markryall/lwnn'
 
-  spec.files = Dir['lib/**/*'] + Dir['bin/*'] + ['README.rdoc', 'MIT-LICENSE']
+  spec.files = Dir['lib/**/*'] + Dir['bin/*'] + ['README.md', 'MIT-LICENSE']
   spec.executables << 'lwnn'
 
   spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rspec'
 end

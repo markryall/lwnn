@@ -35,6 +35,10 @@ module Lwnn
           state.pop
           nil
         end
+        ec.bind('clear') do |state|
+          state.clear
+          nil
+        end
       end
     end
   end

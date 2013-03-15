@@ -10,6 +10,10 @@ module Lwnn
       @bindings = {}
     end
 
+    def clear
+      @stack.clear
+    end
+
     def peek
       @stack.last
     end
