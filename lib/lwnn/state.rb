@@ -7,7 +7,17 @@ module Lwnn
 
     def initialize
       @stack = []
-      @bindings = {}
+      @contexts = [{}]
+    end
+
+    def down
+      @contexts.unshift({})
+      nil
+    end
+
+    def up
+      @contexts.shift
+      nil
     end
 
     def clear
@@ -34,15 +44,18 @@ module Lwnn
     end
 
     def []= key, value
-      @bindings[key] = value
+      @contexts.first[key] = value
     end
 
     def has_binding? key
-      @bindings.has_key? key
+      @contexts.first.has_key? key
     end
 
     def lookup key
-      return @bindings[key] if has_binding? key
+      @contexts.each do |context|
+        return context[key] if context.has_key? key
+      end
+      nil
     end
 
     def evaluate
@@ -62,7 +75,7 @@ module Lwnn
         pop
         push_literal 'attempted_reassignment'
       else
-        self[evaluate] = Stack.new @stack
+        self[pop.value] = Stack.new @stack
         @stack.clear
         nil
       end

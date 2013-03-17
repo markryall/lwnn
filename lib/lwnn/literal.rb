@@ -4,6 +4,8 @@ module Lwnn
   class Literal
     include Trace
 
+    attr_reader :value
+
     def initialize value, state
       @value, @state = value, state
     end

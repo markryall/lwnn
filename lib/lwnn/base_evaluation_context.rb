@@ -31,10 +31,8 @@ module Lwnn
           con, t, f = state.evaluate, state.pop, state.pop
           con == 'true' ? t.evaluate(state) : f.evaluate(state)
         end
-        ec.bind('new') do |state|
-          state.pop
-          nil
-        end
+        ec.bind('up') { |state| state.up }
+        ec.bind('down') { |state| state.down }
       end
     end
   end
