@@ -1,8 +1,8 @@
+require_relative '../spec_helper'
 require 'lwnn/tokeniser'
 
 describe Lwnn::Tokeniser do
-  let(:tokeniser) { Lwnn::Tokeniser.new }
   it 'should read single integer' do
-    tokeniser.tokenise('2').should == ['2']
+    Lwnn::Tokeniser.new.tokenise('2').must_equal ['2']
   end
 end

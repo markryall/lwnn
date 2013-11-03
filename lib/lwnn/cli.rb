@@ -1,30 +1,27 @@
 require 'lwnn/tokeniser'
 require 'lwnn/executor'
+require 'lwnn/readline_io'
 require 'readline'
 
 module Lwnn
-  class ReadlineIo
-    def initialize prompt
-      @prompt = prompt
-    end
-
-    def gets
-      Readline.readline @prompt, true
-    end
-  end
-
   class Cli
-    def self.run *args
+    attr_reader :readline, :tokeniser, :executor
+
+    def initialize readline=nil, tokeniser=nil, executor=nil
+      @readline = readline || ReadlineIo.new('> ')
+      @tokeniser = tokeniser || Lwnn::Tokeniser.new
+      @executor = executor || Lwnn::Executor.new
+    end
+
+    def run *args
       if args.empty?
-        process ReadlineIo.new('> '), true
+        process readline, true
       else
         args.each {|arg| File.open(arg) {|file| process file, false } }
       end
     end
 
-    def self.process io, interactive
-      tokeniser = Lwnn::Tokeniser.new
-      executor = Lwnn::Executor.new
+    def process io, interactive
       while line = io.gets
         line.chomp!
         return if line == 'exit'

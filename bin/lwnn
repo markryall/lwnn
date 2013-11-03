@@ -4,5 +4,4 @@ $: << File.dirname(__FILE__)+'/../lib'
 
 require 'lwnn/cli'
 
-Lwnn::Cli.run *ARGV
-
+Lwnn::Cli.new.run *ARGV
